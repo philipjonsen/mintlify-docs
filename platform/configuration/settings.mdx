@@ -1,0 +1,150 @@
+---
+title: "Configure Workspace Settings in Black Raven Institution"
+sidebarTitle: "Settings"
+description: "Manage workspace name, timezone, session security, IP allowlists, SSO configuration, and notification defaults from the Settings panel."
+---
+
+The Settings panel is your central control point for how Black Raven Institution identifies your workspace, displays dates and times, enforces access policies, and communicates with your team. Navigate to **Settings → General** to access these options. Changes made here apply workspace-wide unless individual members have set personal overrides.
+
+## General
+
+These settings control how your workspace is identified across the UI, email notifications, and shared links, as well as the defaults applied to all members.
+
+| Setting | Description |
+|---|---|
+| Workspace name | The display name used in the UI, email notifications, and shared links. |
+| Workspace slug | The URL-safe identifier used in API calls. Changing this updates all URLs—notify your team before doing so. |
+| Timezone | The default timezone for date displays and scheduled jobs. Members can override this in their personal preferences. |
+| Language | The default display language for new members. |
+
+## Security
+
+Black Raven Institution provides three layers of security configuration: session controls, IP-based access restrictions, and single sign-on enforcement.
+
+<Tabs>
+  <Tab title="Session Settings">
+    Session settings determine how long authenticated users remain signed in and when they must re-verify their identity.
+
+    <Steps>
+      <Step title="Open Session Settings">
+        Go to **Settings → Security → Session**.
+      </Step>
+      <Step title="Set the session timeout">
+        Enter the idle timeout duration in minutes. The default is 10,080 minutes (7 days). Users are signed out automatically after this period of inactivity.
+      </Step>
+      <Step title="Enable force re-authentication (optional)">
+        Toggle **Force re-authentication** on to require password or SSO confirmation before a user can access sensitive settings such as billing or API keys.
+      </Step>
+      <Step title="Save">
+        Click **Save changes**. The new timeout applies to all sessions started after this point; existing sessions are not affected until they next renew.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="IP Allowlist">
+    Restrict workspace access to specific IP ranges. When the allowlist is enabled, users outside those ranges cannot authenticate, even with valid credentials.
+
+    <Warning>
+      Verify your own IP address is included before enabling the allowlist. Enabling it without adding your IP will lock you out of the workspace immediately.
+    </Warning>
+
+    <Steps>
+      <Step title="Open the IP Allowlist">
+        Go to **Settings → Security → IP Allowlist**.
+      </Step>
+      <Step title="Add your IP ranges">
+        Click **Add range** and enter an IP address or CIDR block (for example, `203.0.113.0/24`). Repeat for each range you want to permit. Individual addresses can be entered as a `/32` block.
+      </Step>
+      <Step title="Verify your current IP is included">
+        Your current IP address is displayed at the top of the page. Confirm it falls within one of the ranges you have added before proceeding.
+      </Step>
+      <Step title="Enable the allowlist">
+        Toggle **Enable IP allowlist** on and click **Save changes**. Access from any IP not in the list is denied immediately.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="SSO">
+    Connect a SAML 2.0 or OIDC identity provider to centralize authentication for your team. Once SSO is enforced, password-based login is disabled for all non-admin members.
+
+    <Tabs>
+      <Tab title="SAML 2.0">
+        <Steps>
+          <Step title="Open SSO settings">
+            Go to **Settings → Security → SSO** and click **Configure SAML**.
+          </Step>
+          <Step title="Copy the Service Provider details">
+            Copy the **Entity ID** and **Assertion Consumer Service (ACS) URL** shown on the page and enter them in your identity provider's SAML application settings.
+          </Step>
+          <Step title="Enter your IdP metadata">
+            Paste your identity provider's **Metadata URL** or upload the XML metadata file. Black Raven Institution uses this to validate SAML assertions.
+          </Step>
+          <Step title="Map attributes">
+            Confirm that your IdP sends `email` as a SAML attribute. Optionally map `first_name` and `last_name` for automatic profile population.
+          </Step>
+          <Step title="Test and enforce">
+            Click **Test connection** to verify the configuration, then toggle **Enforce SSO** on to disable password login for non-admin members.
+          </Step>
+        </Steps>
+      </Tab>
+      <Tab title="OIDC">
+        <Steps>
+          <Step title="Open SSO settings">
+            Go to **Settings → Security → SSO** and click **Configure OIDC**.
+          </Step>
+          <Step title="Register Black Raven Institution as an OIDC client">
+            In your identity provider, create a new OIDC application and set the **Redirect URI** to the value shown on the SSO settings page.
+          </Step>
+          <Step title="Enter your OIDC credentials">
+            Paste the **Client ID**, **Client Secret**, and **Issuer URL** from your identity provider into the corresponding fields.
+          </Step>
+          <Step title="Test and enforce">
+            Click **Test connection** to verify the token exchange, then toggle **Enforce SSO** on to disable password login for non-admin members.
+          </Step>
+        </Steps>
+      </Tab>
+    </Tabs>
+
+    <Note>
+      At least one Admin account must retain password-based login as a recovery method. SSO enforcement does not apply to Admins.
+    </Note>
+  </Tab>
+</Tabs>
+
+## API Keys
+
+API keys grant programmatic access to your workspace. Each key is scoped to control what it can do—choose the narrowest scope that meets your integration's needs.
+
+<CardGroup cols={2}>
+  <Card title="Read-only" icon="eye">
+    Permits GET requests only. Use for dashboards, monitoring integrations, or any system that reads data without writing it.
+  </Card>
+  <Card title="Read-write" icon="pencil">
+    Permits GET, POST, PUT, PATCH, and DELETE requests. Use for integrations that create or modify workspace data.
+  </Card>
+</CardGroup>
+
+<Steps>
+  <Step title="Open API Keys">
+    Go to **Settings → API Keys**.
+  </Step>
+  <Step title="Create a key">
+    Click **New API key**, enter a descriptive name (for example, `analytics-dashboard-read`), and select the scope: **Read-only** or **Read-write**.
+  </Step>
+  <Step title="Copy and store the key">
+    The key value is displayed only once. Copy it to a secure secrets manager immediately—you cannot retrieve it again after closing the dialog.
+  </Step>
+  <Step title="Revoke when no longer needed">
+    To revoke a key, find it in the API Keys list and click **Revoke**. The key becomes invalid immediately; any integrations using it will stop working.
+  </Step>
+</Steps>
+
+<Warning>
+  Treat API keys like passwords. Do not commit them to version control or expose them in client-side code.
+</Warning>
+
+## Notification Defaults
+
+These settings apply to all new members joining the workspace. Existing members retain their personal notification preferences unless you explicitly reset them.
+
+- **Email digests** — Daily or weekly summaries of activity in projects the member belongs to.
+- **Mention alerts** — Immediate email when a member is @-mentioned in a comment or task.
+- **Project updates** — Notify members when a project they belong to changes status.

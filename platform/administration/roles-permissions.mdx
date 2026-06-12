@@ -1,0 +1,52 @@
+---
+title: "Roles and Permissions: Control Access in Your Workspace"
+sidebarTitle: "Roles & Permissions"
+description: "Use Black Raven Institution's built-in roles or create custom permission sets to control exactly what each team member can see and do."
+---
+
+Black Raven Institution uses a role-based access control (RBAC) model to determine what each team member can see and do. Roles are assigned at the workspace level and can be overridden at the project level for more granular control, giving you flexibility to accommodate diverse team structures without compromising security.
+
+## Built-In Roles
+
+Three built-in roles cover most team structures. Assign the role that matches the level of access each member needs.
+
+<CardGroup cols={3}>
+  <Card title="Admin" icon="shield">
+    Full access to workspace settings, billing, all projects, and member management. Assign sparingly.
+  </Card>
+  <Card title="Member" icon="user">
+    Can create projects, manage content, and invite collaborators within their projects. Cannot access billing or workspace settings.
+  </Card>
+  <Card title="Viewer" icon="eye">
+    Read-only access to projects they are explicitly added to. Cannot create, edit, or delete content.
+  </Card>
+</CardGroup>
+
+## Custom Roles
+
+Custom roles let you define precise permission sets for teams with non-standard access needs. Each custom role is built by selecting from a list of granular permissions.
+
+1. Go to **Settings → Roles → New role**.
+2. Give the role a name and optional description.
+3. Toggle individual permissions on or off.
+4. Save and assign to members.
+
+<Info>
+  Custom roles are available on Business and Enterprise plans. Workspace Admins can create and manage up to 20 custom roles.
+</Info>
+
+### Common Custom Role Patterns
+
+Use these patterns as a starting point when designing roles for specialized team functions:
+
+- **Data analyst** — Read access to analytics dashboards and reports, no access to settings or user management.
+- **Integration manager** — Full access to integrations and connectors, read-only access to projects.
+- **Billing contact** — Access to billing settings only, no access to workspace data.
+
+## Per-Project Overrides
+
+A member's workspace-level role can be overridden for specific projects. Project-level roles take full precedence within that project. Removing a per-project override reverts the member to their workspace-level role for that project.
+
+1. Open the project and go to **Settings → Members**.
+2. Find the member and select a role from the dropdown.
+3. Save changes.

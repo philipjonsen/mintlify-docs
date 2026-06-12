@@ -1,0 +1,90 @@
+---
+title: "Platform Key Concepts: Workspaces, Projects, and Roles"
+sidebarTitle: "Key Concepts"
+description: "Understand the core building blocks of Black Raven Institution—workspaces, projects, member roles, and API credentials—before diving into setup."
+---
+
+Before you configure settings or invite your team, it helps to understand how Black Raven Institution structures your data and access. The foundational concepts below—workspaces, projects, member roles, credentials, integrations, and data features—underpin every other feature on the platform. Understanding this core model makes every subsequent guide easier to follow.
+
+## Workspaces
+
+A workspace is the top-level container for your organization. It holds all projects, members, settings, and billing information. Every user belongs to at least one workspace, and each workspace operates independently with its own configuration and data. Workspaces are identified by a unique `slug` used in URLs and API calls.
+
+## Projects
+
+Projects are the primary unit of work within a workspace. Each project has its own members, settings, and data. You can create as many projects as you need, and the same user can belong to multiple projects with different roles in each.
+
+<Info>
+  Project-level role overrides take precedence over workspace-level roles. A user who is a Viewer at the workspace level can be granted Admin access on a specific project.
+</Info>
+
+## Members and roles
+
+Every workspace member is assigned a role that controls what they can see and do.
+
+| Role | Description |
+|---|---|
+| **Admin** | Full access to workspace settings, billing, and all projects. Can invite and remove members. |
+| **Member** | Can create and manage projects they belong to. Cannot access billing or workspace-level settings. |
+| **Viewer** | Read-only access to projects they are added to. Cannot create or modify content. |
+
+Custom roles with granular permissions are available on higher-tier plans.
+
+## API credentials
+
+Black Raven Institution supports several credential types that allow external tools, services, and integrations to interact with your workspace programmatically.
+
+### API keys
+
+API keys are workspace-scoped tokens you generate under **Settings → API Keys**. Each key can be restricted to **read-only** or **read-write** access. Use read-only keys for dashboards and reporting tools; use read-write keys only for services that need to write data. Treat API keys as secrets—rotate them immediately if they are exposed.
+
+### Service account credentials
+
+Service accounts are non-human identities used for server-to-server integrations. You authenticate a service account by uploading a JSON key file generated from **Settings → Service Accounts**. Service accounts follow the same role model as human members and should be granted the minimum permissions needed for their task.
+
+## Webhooks
+
+Webhooks let Black Raven Institution push real-time event notifications to your own endpoints. You register a webhook URL under **Settings → Webhooks** and subscribe to the event types you care about. Every webhook request includes an `X-Signature-256` header containing an HMAC-SHA256 signature computed from your webhook secret—always verify this signature before processing the payload.
+
+<Warning>
+  Reject any webhook request whose `X-Signature-256` signature does not match. This protects your endpoint from spoofed or replayed events.
+</Warning>
+
+## OAuth 2.0 integrations
+
+Black Raven Institution uses the OAuth 2.0 authorization code flow to connect third-party services such as CRMs, marketing platforms, and productivity tools. When you add an integration, you are redirected to the provider's authorization page. After you grant access, Black Raven Institution stores the resulting tokens and manages token refresh automatically. You can review and revoke active integrations at any time under **Settings → Integrations**.
+
+## Data sources and sync
+
+A data source is an external system—such as a database, CRM, or file store—that you connect to a project. After connecting a source, you can:
+
+- **Test the connection** to verify credentials and network access before enabling sync.
+- **Set sync frequency** (real-time, hourly, daily, or manual) to control how often Black Raven Institution pulls updated data.
+
+Connection credentials are encrypted at rest and never exposed after initial setup.
+
+## CRM field mapping
+
+When you connect a CRM data source, Black Raven Institution presents a field mapping editor that lets you align CRM fields to your project's schema. You can map standard fields automatically or define custom mappings for non-standard attributes. Field mapping changes take effect on the next sync cycle.
+
+## CSV bulk import
+
+You can bulk-import workspace members by uploading a CSV file under **Settings → Users → Import**. The file must include the following columns in any order:
+
+| Column | Required | Description |
+|---|---|---|
+| `email` | ✅ | Member's email address |
+| `role` | ✅ | One of `admin`, `member`, or `viewer` |
+| `first_name` | ✅ | Member's first name |
+| `last_name` | ✅ | Member's last name |
+
+Each imported member receives an invitation email to complete their account setup. Rows with invalid or duplicate email addresses are skipped and listed in the import error report.
+
+## Dashboard embeds and shareable links
+
+You can share project dashboards with stakeholders who don't have a Black Raven Institution account in two ways:
+
+- **Embed code** — generates an `<iframe>` snippet you can paste into an internal portal or website. Embedded dashboards respect the permissions of the service account or API key used to generate them.
+- **Shareable link** — generates a time-limited, read-only URL you can send directly. Set an expiry window of 1 hour to 30 days when creating the link.
+
+Both options are available from the **Share** menu on any dashboard.

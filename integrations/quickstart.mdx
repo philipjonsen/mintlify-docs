@@ -1,0 +1,70 @@
+---
+title: "Connect Your First Integration in Under 10 Minutes"
+sidebarTitle: "Quickstart"
+description: "Find a connector in the catalog, authenticate, map fields, and test your connection to go live with your first Black Raven Institution integration."
+---
+
+Connecting a pre-built integration from the connector catalog takes just a few minutes. The steps below apply to most connector types—only the authentication method differs depending on the tool you're connecting.
+
+## Before you begin
+
+Make sure you have the following ready before starting:
+
+- **Admin** or **Member** role in your workspace
+- Credentials for the tool you want to connect (API key, OAuth app client ID and secret, or service account)
+
+## Connect your integration
+
+<Steps>
+  <Step title="Find your integration">
+    Go to **Integrations → Catalog** and search for or browse to the tool you want to connect. Each connector card displays the supported authentication method and available sync capabilities.
+  </Step>
+
+  <Step title="Authenticate">
+    Click **Connect** on the connector card. The authentication flow depends on the method the tool uses:
+
+    - **API key** — Paste the key into the provided field.
+    - **OAuth 2.0** — Click **Authorize** to be redirected to the tool's authorization page. Sign in and grant access, then you'll be returned to Black Raven Institution automatically.
+    - **Service account** — Upload the credentials file (usually a JSON key file) and fill in any required fields.
+
+    See [Authentication Methods](/integrations/authentication) for details on each approach.
+  </Step>
+
+  <Step title="Configure field mapping">
+    Map fields from the connected tool to your workspace's data model. Default mappings are pre-filled for common fields—review them and adjust as needed. Required fields are marked with an asterisk (\*).
+  </Step>
+
+  <Step title="Test the connection">
+    Click **Test connection** to trigger a sample sync. The test pulls a small number of records and displays them for your review. If the test fails, an error message explains the cause so you can correct it before going live.
+  </Step>
+</Steps>
+
+<Note>
+  Some connectors require Black Raven Institution's outbound IP addresses to be allowlisted on your end. Check the connector's setup notes for IP requirements before running the connection test.
+</Note>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Auth Methods"
+    icon="key"
+    href="/integrations/authentication"
+  >
+    Understand API keys, OAuth 2.0, and service accounts for your integrations.
+  </Card>
+  <Card
+    title="CRM Connectors"
+    icon="address-book"
+    href="/integrations/connectors/crm"
+  >
+    Sync contacts, deals, and activity from Salesforce, HubSpot, and more.
+  </Card>
+  <Card
+    title="Configure Webhooks"
+    icon="webhook"
+    href="/integrations/webhooks/configure"
+  >
+    Route workspace events to any HTTPS endpoint with signature verification.
+  </Card>
+</CardGroup>

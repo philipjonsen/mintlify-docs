@@ -1,0 +1,64 @@
+---
+title: "Integration Auth: API Keys, OAuth 2.0, Service Accounts"
+sidebarTitle: "Authentication"
+description: "Choose the right authentication method for each integration—and learn how to safely rotate API keys, OAuth tokens, and service account credentials."
+---
+
+Different integrations use different authentication methods. Choosing the right method—and managing credentials properly—affects both the security and reliability of your connected tools. This page explains when to use each method and how to keep credentials up to date.
+
+## API keys
+
+API keys are long-lived tokens issued directly by the external service. They are the simplest authentication method and work well for server-to-server connections where OAuth is not available.
+
+**When to use:** Services that issue personal access tokens or API keys—most developer tools and data APIs fall into this category.
+
+To connect an integration using an API key, paste the key into the provided field during the connector setup flow.
+
+### Rotating an API key
+
+1. Generate a new key in the external service.
+2. Go to **Integrations → [Integration name] → Credentials**.
+3. Paste the new key and click **Save**.
+4. Verify the connection still works, then revoke the old key in the external service.
+
+<Warning>
+  Rotating a key while the old one is still active causes a brief period of failed syncs. Minimize disruption by saving the new key first and revoking the old key only after you have verified the connection is working.
+</Warning>
+
+## OAuth 2.0
+
+OAuth 2.0 lets you authorize Black Raven Institution to act on your behalf without sharing your password. The platform handles the token refresh cycle automatically, so you don't need to manage access tokens manually.
+
+**When to use:** SaaS tools that support OAuth—such as CRMs, productivity tools, and communication platforms.
+
+### How authorization works
+
+1. Click **Authorize** on the connector setup page.
+2. You are redirected to the service's authorization screen.
+3. Sign in and approve the requested permissions.
+4. Black Raven Institution securely stores the access token and refresh token.
+
+### Token refresh and reconnection
+
+OAuth tokens expire regularly. Black Raven Institution refreshes them automatically before expiry. If a refresh fails—for example, because permissions were revoked in the external service—the integration displays a **Reconnect** prompt. Click it to restart the authorization flow and restore the connection.
+
+## Service accounts
+
+Service accounts are non-personal identities created in the external system specifically for machine-to-machine access. They are common with Google Cloud, AWS, and enterprise SaaS platforms.
+
+**When to use:** Situations where access must not be tied to an individual user—for example, to avoid disruption if an employee leaves—or where the service does not support OAuth.
+
+### Setup
+
+Upload the credentials file (usually a JSON key or certificate) in the connector setup dialog. Black Raven Institution stores it encrypted and uses it to authenticate all requests on your behalf.
+
+### Rotating a service account key
+
+1. Generate a new service account key in the external service.
+2. Go to **Integrations → [Integration name] → Credentials** and upload the new key.
+3. Verify the connection is working.
+4. Deactivate or delete the old key in the external service.
+
+<Warning>
+  Keep the old key active until you have confirmed the new key works. Deactivating the old key before the new one is verified will interrupt active syncs.
+</Warning>

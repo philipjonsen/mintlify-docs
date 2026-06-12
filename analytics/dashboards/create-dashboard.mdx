@@ -1,0 +1,73 @@
+---
+title: "Create and Organize Analytics Dashboards"
+sidebarTitle: "Create Dashboard"
+description: "Build a dashboard from scratch, add and arrange charts, configure auto-refresh, and share or embed your dashboards in Black Raven Institution."
+---
+
+Dashboards group related charts and metrics into a single view, giving you and your team a focused window into the data that matters most. This guide walks through creating a dashboard from scratch, building out its layout, and configuring settings to keep it useful over time.
+
+## Create a new dashboard
+
+1. Go to **Analytics → Dashboards**.
+2. Click **New dashboard**.
+3. Enter a name. Use a name that reflects the audience or question the dashboard answers — for example, "Revenue by region" or "Support queue health".
+4. Optionally add a description to help teammates understand the dashboard's purpose.
+5. Click **Create**.
+
+## Add charts
+
+With the dashboard open, click **Add chart** to insert a new visualization. Each chart is configured independently and can pull from any connected data source.
+
+## Arrange the layout
+
+Charts can be resized and repositioned by dragging. The grid snaps to a 12-column layout.
+
+1. Click **Edit layout** in the dashboard toolbar.
+2. Drag charts to new positions.
+3. Resize by dragging the bottom-right corner of any chart.
+4. Click **Save layout** when done.
+
+<Info>
+  Layout changes are saved separately from chart configuration. You can rearrange without affecting the underlying queries.
+</Info>
+
+## Share and embed dashboards
+
+You can share a dashboard with teammates or embed it in an external site using the **Share** menu in the dashboard header.
+
+<Steps>
+  <Step title="Open the Share menu">
+    Click **Share** in the dashboard header to open the sharing panel.
+  </Step>
+  <Step title="Generate a shareable link">
+    Toggle **Shareable link** to on. Copy the generated URL and send it to anyone who should have view access. Recipients must have a Black Raven Institution account to view the dashboard.
+  </Step>
+  <Step title="Get an embed code">
+    Click **Embed** to generate an `<iframe>` snippet you can paste into any web page or internal tool. Set the desired width and height before copying the code.
+
+    ```html
+    <iframe
+      src="https://app.blackraven.io/embed/dashboards/<dashboard-id>"
+      width="1200"
+      height="800"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+    ```
+
+    Replace `<dashboard-id>` with the ID shown in the embed panel.
+  </Step>
+</Steps>
+
+<Note>
+  Embed codes use a read-only token tied to the dashboard. If you delete or regenerate the token, existing embed links stop working immediately.
+</Note>
+
+## Dashboard settings
+
+Access these options from the **⋯** menu in the dashboard header.
+
+- **Rename** — Update the dashboard name and description.
+- **Duplicate** — Copy the dashboard to a new one, including all charts and layout.
+- **Auto-refresh** — Set a refresh interval (30 seconds, 1 minute, or 5 minutes) for live monitoring dashboards.
+- **Delete** — Permanently removes the dashboard. Charts are not deleted and remain available as standalone components.

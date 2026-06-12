@@ -1,0 +1,40 @@
+---
+title: "Invite and Manage Team Members in Black Raven Institution"
+sidebarTitle: "User Management"
+description: "Invite members by email or bulk CSV, assign roles, deactivate accounts, and manage your complete team roster in Black Raven Institution."
+---
+
+Admins can manage the full member lifecycle from **Settings → Users**: invite new members, adjust roles, deactivate accounts, and bulk-import users via CSV. Every action takes effect immediately, so review your inputs carefully before confirming changes.
+
+## Invite by Email
+
+Send individual or batch invitations directly from the Users page. Each invitee receives a time-limited link that expires after 72 hours—if they miss it, resend the invitation from the pending invites list.
+
+1. Go to **Settings → Users → Invite members**.
+2. Enter one or more email addresses, separated by commas.
+3. Select the workspace role to assign (**Admin**, **Member**, or **Viewer**).
+4. Click **Send invitations**.
+
+<Info>
+  You can override the workspace-level role on a per-project basis after the member accepts their invitation.
+</Info>
+
+## Deactivating Accounts
+
+Deactivating a member revokes their access immediately without deleting their data. Any content they created remains intact and accessible to other members. Deactivated accounts can be reactivated at any time by an Admin, which restores the member's original role and project memberships.
+
+1. Find the member in **Settings → Users**.
+2. Open their profile and select **Deactivate account**.
+3. Confirm the action.
+
+## Bulk CSV Import
+
+For larger teams, use CSV import to invite multiple members at once. Download the CSV template from the Users page, fill it in, and upload the file. The system validates each row before sending invitations—rows with errors are skipped and listed in the import summary.
+
+**Required columns:** `email`, `role`
+
+**Optional columns:** `first_name`, `last_name`
+
+<Warning>
+  CSV import sends invitations immediately. Review the file carefully before uploading, especially role assignments.
+</Warning>
